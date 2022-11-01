@@ -1,6 +1,7 @@
 from django.views.generic import CreateView, ListView, DetailView, UpdateView
 from django.views.generic.edit import DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http.response import HttpResponseRedirect
 
 from .forms import NotesForm
 from .models import Notes
@@ -24,6 +25,15 @@ class NotesCreateView(CreateView):
     form_class = NotesForm
     template_name = "notes/notes_form.html"
     success_url = "/smart/notes"
+
+    def form_valid(self, form):
+        # Here we create 'object' that equals forms data
+        # Than to 'object' variable we create new attribute 'user'
+        # That equals to our 'user'
+        self.object = form.save(commit=False)  # To get form data and then fill a field that the form does not have
+        self.object.user = self.request.user
+        self.object.save()
+        return HttpResponseRedirect(self.get_success_url())
 
 
 class NotesListView(LoginRequiredMixin, ListView):
