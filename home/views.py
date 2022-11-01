@@ -3,7 +3,11 @@ from django.http import HttpResponse
 from datetime import datetime
 from django.views.generic import TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.views import LoginView
+from django.contrib.auth.views import LoginView, LogoutView
+
+
+class LogoutInterfaceView(LogoutView):
+    template_name = "home/logout.html"
 
 
 class LoginInterfaceView(LoginView):

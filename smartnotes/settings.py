@@ -129,3 +129,4 @@ STATICFILES_DIRS = [
 ]
 
 LOGIN_REDIRECT_URL = "/smart/notes"
+LOGOUT_REDIRECT_URL = "/login"
